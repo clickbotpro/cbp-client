@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "watch": true,
+    "incremental": false,            /* Enable incremental compilation */
+    "target": "es2021",                /* Specify ECMAScript target version: */
+    "module": "commonjs",           /* 'none', 'commonjs', 'amd', 'system', etc */
+    "declaration": true,            /* Concatenate & emit output to single file.*/
+    "declarationDir": "typings",
+    "declarationMap": false,
+    "outDir": "js",                /* Redirect output to the directory. */
+    "esModuleInterop": true,        /* Enables intero between CommonJS and ES */
+    "skipLibCheck": true,           /* Skip type checking of declaration files. */
+    "forceConsistentCasingInFileNames": true, /* Disallow inconsistently */
+    "sourceMap": true, 
+    "removeComments": true
+  },
+  "exclude": ["node_modules","js","typings","*.tgz"]
+}
+

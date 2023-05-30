@@ -1,0 +1,32 @@
+{
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clickbotpro/cbp-client.git"
+  },
+  "keywords": [
+    "ClickbotPro",
+    "opencv",
+    "puppeteer",
+    "teseract",
+    "electron"
+  ],
+  "name": "cbp-client",
+  "version": "1.0.8",
+  "description": "ClickbotPro Client SDK",
+  "main": "js/CbpClient",
+  "typings": "typings/CbpClient",
+  "scripts": {
+    "start": "node js/CbpClient.js",
+    "build": "tsc --build tsconfig.prod.json"
+  }, 
+  "author": "ClickbotPro Team",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.7.6",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "ws": "^8.6.0"
+  }
+}
+

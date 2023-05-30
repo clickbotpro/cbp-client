@@ -1,0 +1,34 @@
+export declare class CbpWindow {
+    _sendAsync: (action: string, data: any) => void;
+    private _tabName;
+    constructor(_sendAsync: (action: string, data: any) => void, tabName: string);
+    sendAsync<T>(action: string, data: T): Promise<any>;
+    private sendWindowAction;
+    private sendWindowWebContentsAction;
+    copy(): Promise<void>;
+    copyImageAt(x: number, y: number): Promise<void>;
+    cut(): Promise<void>;
+    delete(): Promise<void>;
+    findInPage(text: string, options?: any): Promise<number>;
+    stopFindInPage(action: "clearSelection" | "keepSelection" | "activateSelection"): Promise<void>;
+    insertText(text: string): Promise<void>;
+    inspectElement(x: number, y: number): Promise<void>;
+    paste(): Promise<void>;
+    reloadIgnoringCache(): Promise<void>;
+    replace(text: string): Promise<void>;
+    selectAll(): Promise<void>;
+    setUserAgent(userAgent: string): Promise<void>;
+    undo(): Promise<void>;
+    unselect(): Promise<void>;
+    setFrameRate(fps: number): Promise<void>;
+    hide(): Promise<void>;
+    show(): Promise<void>;
+    center(): Promise<void>;
+    focus(): Promise<void>;
+    isFocused(): Promise<boolean>;
+    isVisible(): Promise<boolean>;
+    executeJavaScript(js: string): Promise<any>;
+    setIgnoreMouseEvents(ignore: boolean, options?: any): Promise<void>;
+    setSize(width: number, height: number, animate?: boolean): Promise<void>;
+    setTitle(title: string): Promise<void>;
+}
