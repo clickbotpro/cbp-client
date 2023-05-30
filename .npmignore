@@ -1,0 +1,6 @@
+*.tgz
+lib/tsconfig.tsbuildinfo
+tsconfig.json
+src
+tsconfig.prod.json
+public
