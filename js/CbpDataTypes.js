@@ -82,4 +82,3 @@ class BrowserPars {
     }
 }
 exports.BrowserPars = BrowserPars;
-//# sourceMappingURL=CbpDataTypes.js.map

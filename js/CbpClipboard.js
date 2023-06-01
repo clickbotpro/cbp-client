@@ -64,4 +64,3 @@ class CbpClipboard {
     }
 }
 exports.CbpClipboard = CbpClipboard;
-//# sourceMappingURL=CbpClipboard.js.map

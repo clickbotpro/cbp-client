@@ -192,8 +192,8 @@ export interface IFindImagesByNameData {
     srcImgFileName: string;
     imgName: string;
 }
-export declare type KeyboardOperationType = "keyboardType" | "keyboardBackspace" | "keyboardCopy" | "keyboardPaste" | "keyboardPress" | "keyboardRelease" | "keyboardReload";
-export declare type MouseOperationType = "mouseMoveTo" | "mouseLeftClick" | "mouseRightClick" | "mouseWheel";
+export type KeyboardOperationType = "keyboardType" | "keyboardBackspace" | "keyboardCopy" | "keyboardPaste" | "keyboardPress" | "keyboardRelease" | "keyboardReload";
+export type MouseOperationType = "mouseMoveTo" | "mouseLeftClick" | "mouseRightClick" | "mouseWheel";
 export interface IMouseOperationData {
     operation: MouseOperationType;
     name: string;
@@ -220,7 +220,7 @@ export interface ITabRefresh {
     tabName: string;
     operation: "refresh" | "goBack" | "goForward";
 }
-export declare type BotLogScope = 'ADDITIONAL' | 'BOTPROCESS' | 'BROWSER_CONSOLE_LOG';
+export type BotLogScope = 'ADDITIONAL' | 'BOTPROCESS' | 'BROWSER_CONSOLE_LOG';
 export interface IBotLogData {
     botName: string;
     msg: string;

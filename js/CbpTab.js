@@ -101,4 +101,3 @@ class CbpTab extends CbpWindow_1.CbpWindow {
     }
 }
 exports.CbpTab = CbpTab;
-//# sourceMappingURL=CbpTab.js.map
