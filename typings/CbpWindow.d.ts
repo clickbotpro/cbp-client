@@ -25,10 +25,12 @@ export declare class CbpWindow {
     show(): Promise<void>;
     center(): Promise<void>;
     focus(): Promise<void>;
+    isDestroyed(): Promise<boolean>;
     isFocused(): Promise<boolean>;
     isVisible(): Promise<boolean>;
     executeJavaScript(js: string): Promise<any>;
     setIgnoreMouseEvents(ignore: boolean, options?: any): Promise<void>;
     setSize(width: number, height: number, animate?: boolean): Promise<void>;
+    setContentSize(width: number, height: number): Promise<void>;
     setTitle(title: string): Promise<void>;
 }

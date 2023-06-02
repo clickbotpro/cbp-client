@@ -10,6 +10,7 @@ exports.BatchActions = {
 exports.SDKClientActions = {
     OS_EXEC: "OS_EXEC",
     CLIPBOARD: "CLIPBOARD",
+    MESSENGER: "MESSENGER",
     WINDOW_ACTION: "WINDOW_ACTION",
     SERVICE: "SERVICE",
     PAUSE: "pause",

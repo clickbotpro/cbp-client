@@ -9,6 +9,7 @@ export const SDKClientActions = {
 
   OS_EXEC:"OS_EXEC",
   CLIPBOARD:"CLIPBOARD",
+  MESSENGER:"MESSENGER",
   WINDOW_ACTION:"WINDOW_ACTION",
 
   SERVICE:"SERVICE",
@@ -75,6 +76,19 @@ export const SDKClientActions = {
 export interface IClipboardData {
   operation: "writeText" | "readText" | "paste" | "readRTF" | "writeRTF"|"clear"|"readHTML"|"writeHTML"|"readFilePaths"|"writeFilePaths";
   data?: any;
+}
+
+
+export interface IMessengerEvent {
+  event: "isReady" | "receiveMessage" | "doLogin";
+  data?: any;
+  messengerName:string;
+}
+
+export interface IMessengerData {
+  operation: "getContacts" | "sendMessage" |"sendFiles" | "close" | "open";
+  data?: any;
+  messengerName:string;
 }
 
 export enum AdditionalLogOperations {
@@ -407,4 +421,13 @@ export interface IUserSettings
   outputFolderPath:string;
   hasEmail:boolean,
   hasSms:boolean
+}
+
+export interface IMessengerContact {
+  name?:string;
+  email?:string;
+  phone?:string;
+  id?:string;
+  isMe:boolean;
+  
 }

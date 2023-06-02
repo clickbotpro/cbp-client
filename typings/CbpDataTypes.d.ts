@@ -7,6 +7,7 @@ export declare const BatchActions: {
 export declare const SDKClientActions: {
     OS_EXEC: string;
     CLIPBOARD: string;
+    MESSENGER: string;
     WINDOW_ACTION: string;
     SERVICE: string;
     PAUSE: string;
@@ -57,6 +58,16 @@ export declare const SDKClientActions: {
 export interface IClipboardData {
     operation: "writeText" | "readText" | "paste" | "readRTF" | "writeRTF" | "clear" | "readHTML" | "writeHTML" | "readFilePaths" | "writeFilePaths";
     data?: any;
+}
+export interface IMessengerEvent {
+    event: "isReady" | "receiveMessage" | "doLogin";
+    data?: any;
+    messengerName: string;
+}
+export interface IMessengerData {
+    operation: "getContacts" | "sendMessage" | "sendFiles" | "close" | "open";
+    data?: any;
+    messengerName: string;
 }
 export declare enum AdditionalLogOperations {
     MOUSE = "MOUSE",
@@ -379,4 +390,11 @@ export interface IUserSettings {
     outputFolderPath: string;
     hasEmail: boolean;
     hasSms: boolean;
+}
+export interface IMessengerContact {
+    name?: string;
+    email?: string;
+    phone?: string;
+    id?: string;
+    isMe: boolean;
 }

@@ -160,6 +160,7 @@ export class CbpWindow {
 
   //window actions
 
+
   async hide(): Promise<void> {
     return this.sendWindowAction("hide");
   }
@@ -181,6 +182,10 @@ export class CbpWindow {
     return this.sendWindowAction("focus");
   }
 
+  async isDestroyed(): Promise<boolean> {
+    return this.sendWindowAction("isDestroyed");
+  }
+  
   async isFocused(): Promise<boolean> {
     return this.sendWindowAction("isFocused");
   }
@@ -225,6 +230,13 @@ export class CbpWindow {
   ): Promise<void> {
     return this.sendWindowAction("setSize", [width, height, animate]);
   }
+
+    async setContentSize(
+      width: number,
+      height: number
+    ): Promise<void> {
+      return this.sendWindowAction("setContentSize", [width, height]);
+    }
 
   async setTitle(title: string): Promise<void> {
     return this.sendWindowAction("setTitle", [title]);

@@ -99,6 +99,9 @@ class CbpWindow {
     async focus() {
         return this.sendWindowAction("focus");
     }
+    async isDestroyed() {
+        return this.sendWindowAction("isDestroyed");
+    }
     async isFocused() {
         return this.sendWindowAction("isFocused");
     }
@@ -113,6 +116,9 @@ class CbpWindow {
     }
     async setSize(width, height, animate) {
         return this.sendWindowAction("setSize", [width, height, animate]);
+    }
+    async setContentSize(width, height) {
+        return this.sendWindowAction("setContentSize", [width, height]);
     }
     async setTitle(title) {
         return this.sendWindowAction("setTitle", [title]);

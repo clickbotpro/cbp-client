@@ -37,6 +37,7 @@ const CbpBrowser_1 = require("./CbpBrowser");
 const CbpDesktop_1 = require("./CbpDesktop");
 const CbpServices_1 = require("./CbpServices");
 const CbpClipboard_1 = require("./CbpClipboard");
+const CbpMessenger_1 = require("./CbpMessenger");
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 __exportStar(require("./CbpDataTypes"), exports);
@@ -49,6 +50,7 @@ __exportStar(require("./CbpDesktop"), exports);
 __exportStar(require("./CbpServices"), exports);
 __exportStar(require("./CbpClipboard"), exports);
 __exportStar(require("./CbpUtils"), exports);
+__exportStar(require("./CbpMessenger"), exports);
 const tt = undefined;
 const ctm = undefined;
 const ctk = undefined;
@@ -59,6 +61,7 @@ class CbpClient {
         this.callbackUids = 0;
         this.desktops = {};
         this.anotherBotLogStreams = {};
+        this.messengers = [];
         this.botName = botName || process.env.botName || this.getBotNameFromPackage();
         if (this.botName.length < 3) {
             throw new Error("invalid bot name passed: " + botName);
@@ -70,6 +73,28 @@ class CbpClient {
         this.logger = new CbpLogger_1.CbpLogger(this.botName, this.sendAsync);
         this.services = new CbpServices_1.CbpServices(this.sendAsync);
         this.clipboard = new CbpClipboard_1.CbpClipboard(this.sendAsync);
+    }
+    async getMessenger(messengerName) {
+        const existing = this.messengers.find(m => m.messengerName === messengerName);
+        if (existing) {
+            return existing;
+        }
+        const browser = await this.getBrowser();
+        const m = new CbpMessenger_1.CbpMessenger(this.sendAsync, messengerName);
+        const data = { operation: "open", messengerName };
+        this.sendAsync(jbdt.SDKClientActions.MESSENGER, data);
+        this.messengers.push(m);
+        return m;
+    }
+    closeMessenger(messengerName) {
+        const existing = this.messengers.find(m => m.messengerName === messengerName);
+        if (existing) {
+            const data = { operation: "close", messengerName };
+            this.sendAsync(jbdt.SDKClientActions.MESSENGER, data);
+            this.messengers.splice(this.messengers.indexOf(existing), 1);
+            return true;
+        }
+        return false;
     }
     getBotNameFromPackage() {
         const packageJsonPath = path_1.default.join(process.cwd(), "package.json");
@@ -174,6 +199,18 @@ class CbpClient {
             }
             catch (e) {
                 console.error(`cbp-client error not caught by client ${e}`);
+            }
+        }
+        if (uid == -128) {
+            try {
+                const d = dataFromJson.data;
+                const messenger = this.messengers.find(m => m.messengerName === d.messengerName);
+                if (messenger) {
+                    messenger.onMessengerEvent(d);
+                }
+            }
+            catch (e) {
+                console.error(e);
             }
         }
         if (uid == -127) {

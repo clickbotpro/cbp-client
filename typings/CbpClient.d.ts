@@ -5,6 +5,7 @@ import { CbpDesktop } from './CbpDesktop';
 import { CbpServices } from './CbpServices';
 import { CbpClipboard } from './CbpClipboard';
 import { ExtStartArgs } from './CbpDataTypes';
+import { CbpMessenger } from './CbpMessenger';
 export * from './CbpDataTypes';
 export * from './CbpTab';
 export * from './CbpTabMouse';
@@ -15,6 +16,7 @@ export * from './CbpDesktop';
 export * from './CbpServices';
 export * from './CbpClipboard';
 export * from './CbpUtils';
+export * from './CbpMessenger';
 export default class CbpClient {
     private wsclient;
     private callbacks;
@@ -33,8 +35,11 @@ export default class CbpClient {
     readonly anotherBotLogStreams: {
         [botName: string]: Function;
     };
+    private readonly messengers;
     private browser?;
     constructor(botName?: string);
+    getMessenger(messengerName: "whatsapp"): Promise<CbpMessenger>;
+    closeMessenger(messengerName: "whatsapp"): boolean;
     private getBotNameFromPackage;
     exec(cmd: string): Promise<string>;
     pause(sec?: number): Promise<boolean>;

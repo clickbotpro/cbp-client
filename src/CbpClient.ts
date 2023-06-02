@@ -11,6 +11,7 @@ import { CbpTab } from './CbpTab';
 import { CbpServices } from './CbpServices';
 import { CbpClipboard } from './CbpClipboard';
 import { ExtStartArgs } from './CbpDataTypes';
+import { CbpMessenger } from './CbpMessenger';
 import path from 'path';
 import fs from 'fs';
 
@@ -24,6 +25,7 @@ export * from './CbpDesktop';
 export * from './CbpServices';
 export * from './CbpClipboard';
 export * from './CbpUtils';
+export * from './CbpMessenger';
 
 const tt:CbpTab|undefined=undefined;
 const ctm:CbpTabMouse|undefined=undefined; 
@@ -46,6 +48,7 @@ export default class CbpClient
   public readonly services:CbpServices;
   public readonly desktops: { [id: number]: CbpDesktop } = {};
   public readonly anotherBotLogStreams: { [botName: string]: Function } = {};
+  private readonly messengers: Array<CbpMessenger> = [];
   private browser?:CbpBrowser;
   
   constructor(botName?: string) {
@@ -60,6 +63,32 @@ export default class CbpClient
     this.logger=new CbpLogger(this.botName, this.sendAsync);
     this.services=new CbpServices(this.sendAsync);
     this.clipboard=new CbpClipboard(this.sendAsync);
+  }
+
+  public async getMessenger(messengerName:"whatsapp"):Promise<CbpMessenger>
+  {
+    const existing=this.messengers.find(m=>m.messengerName===messengerName);
+    if(existing) {
+      return existing;
+    }
+    const browser=await this.getBrowser();
+    const m=new CbpMessenger(this.sendAsync,messengerName);
+    const data:jbdt.IMessengerData={operation:"open",messengerName};
+    this.sendAsync(jbdt.SDKClientActions.MESSENGER,data);
+    this.messengers.push(m);
+    return m;
+  }
+
+  public closeMessenger(messengerName:"whatsapp"):boolean
+  {
+    const existing=this.messengers.find(m=>m.messengerName===messengerName);
+    if(existing) {
+      const data:jbdt.IMessengerData={operation:"close",messengerName};
+      this.sendAsync(jbdt.SDKClientActions.MESSENGER,data);
+      this.messengers.splice(this.messengers.indexOf(existing),1);
+      return true;
+    }
+    return false;
   }
 
   private getBotNameFromPackage():string
@@ -187,6 +216,18 @@ export default class CbpClient
         cb(dataFromJson.data, dataFromJson.error);
       } catch (e) {
         console.error(`cbp-client error not caught by client ${e}`);
+      }
+    }
+
+    if (uid == -128) {
+      try {
+        const d=dataFromJson.data as jbdt.IMessengerEvent;
+        const messenger=this.messengers.find(m=>m.messengerName===d.messengerName);
+        if(messenger) {
+          messenger.onMessengerEvent(d);
+        }
+      } catch (e) {
+        console.error(e);
       }
     }
 
