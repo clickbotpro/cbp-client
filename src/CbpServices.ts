@@ -14,13 +14,26 @@ export class CbpServices
 
   public async chatgpt(pars:jbdt.IServiceDataChatGptContent):Promise<string>
   {
-    return this.sendAsync<jbdt.IServiceData>(
+    const jsonResponse=await this.sendAsync<jbdt.IServiceData>(
       jbdt.SDKClientActions.SERVICE,
       { content:JSON.stringify(pars),
         receiver:"",
         serviceName: "chatgpt"
       }
     );
+    //{"answers":[{"role":"assistant","content":"Mir geht es als KI immer gut! Wie geht es dir?"}]}
+    if(!jsonResponse) {
+      throw new Error("No response from chatgpt");
+    }
+    const answers=jsonResponse.answers;
+    if(answers && answers.length>0) {
+      const answer=answers[0];
+      const content=answer.content;
+      if(content && content.length>0) {
+        return content;
+      }
+    }
+    throw new Error("No answer from chatgpt");
   }
 
   

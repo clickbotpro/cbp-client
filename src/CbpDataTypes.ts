@@ -86,7 +86,7 @@ export interface IMessengerEvent {
 }
 
 export interface IMessengerData {
-  operation: "getContacts" | "sendMessage" |"sendFiles" | "close" | "open";
+  operation: "logout"|"getContacts" | "getChats" | "getMessages" | "sendMessage" |"sendFiles" | "close" | "open";
   data?: any;
   messengerName:string;
 }
@@ -428,6 +428,22 @@ export interface IMessengerContact {
   email?:string;
   phone?:string;
   id?:string;
-  isMe:boolean;
-  
+  isMe:boolean;  
+  isGroup:boolean;
+}
+
+export interface IMessengerChat {
+  chatId:string;
+  name:string;
+  isGroup:boolean;
+}
+
+export interface IMessengerMsg {
+  id:string;
+  timestamp:number;
+  from?:string;
+  author?:string;
+  body:string;
+  fromMe:boolean;
+  type:string;
 }

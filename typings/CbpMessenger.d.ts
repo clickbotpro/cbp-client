@@ -8,4 +8,7 @@ export declare class CbpMessenger {
     sendTextMessage(to: string, msg: string): Promise<boolean>;
     sendFiles(to: string, files: Array<string>): Promise<Array<boolean>>;
     getContacts(): Promise<Array<jbdt.IMessengerContact>>;
+    getChats(contactId?: string): Promise<Array<jbdt.IMessengerChat>>;
+    getMessages(chatId: string): Promise<Array<jbdt.IMessengerChat>>;
+    logout(): Promise<boolean>;
 }

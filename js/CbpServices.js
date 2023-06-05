@@ -33,10 +33,22 @@ class CbpServices {
         return this._sendAsync(action, data);
     }
     async chatgpt(pars) {
-        return this.sendAsync(jbdt.SDKClientActions.SERVICE, { content: JSON.stringify(pars),
+        const jsonResponse = await this.sendAsync(jbdt.SDKClientActions.SERVICE, { content: JSON.stringify(pars),
             receiver: "",
             serviceName: "chatgpt"
         });
+        if (!jsonResponse) {
+            throw new Error("No response from chatgpt");
+        }
+        const answers = jsonResponse.answers;
+        if (answers && answers.length > 0) {
+            const answer = answers[0];
+            const content = answer.content;
+            if (content && content.length > 0) {
+                return content;
+            }
+        }
+        throw new Error("No answer from chatgpt");
     }
     async sms(pars) {
         return this.sendAsync(jbdt.SDKClientActions.SERVICE, { content: pars.content, receiver: pars.receiver, serviceName: "sms" });

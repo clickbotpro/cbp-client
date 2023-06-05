@@ -71,7 +71,7 @@ export default class CbpClient
     if(existing) {
       return existing;
     }
-    const browser=await this.getBrowser();
+    const browser=await this.getBrowser();//this is important. we need to make sure the browser is open before we open the messenger
     const m=new CbpMessenger(this.sendAsync,messengerName);
     const data:jbdt.IMessengerData={operation:"open",messengerName};
     this.sendAsync(jbdt.SDKClientActions.MESSENGER,data);

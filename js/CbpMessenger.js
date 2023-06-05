@@ -35,13 +35,34 @@ class CbpMessenger {
         return this._sendAsync(action, data);
     }
     async sendTextMessage(to, msg) {
-        return this.sendAsync(jbdt.SDKClientActions.MESSENGER, { operation: "sendMessage", messengerName: this.messengerName, data: { to, msg } });
+        return this.sendAsync(jbdt.SDKClientActions.MESSENGER, {
+            operation: "sendMessage",
+            messengerName: this.messengerName,
+            data: { to, msg },
+        });
     }
     async sendFiles(to, files) {
-        return this.sendAsync(jbdt.SDKClientActions.MESSENGER, { operation: "sendFiles", messengerName: this.messengerName, data: { to, files } });
+        return this.sendAsync(jbdt.SDKClientActions.MESSENGER, {
+            operation: "sendFiles",
+            messengerName: this.messengerName,
+            data: { to, files },
+        });
     }
     async getContacts() {
         return this.sendAsync(jbdt.SDKClientActions.MESSENGER, { operation: "getContacts", messengerName: this.messengerName });
+    }
+    async getChats(contactId) {
+        return this.sendAsync(jbdt.SDKClientActions.MESSENGER, {
+            operation: "getChats",
+            messengerName: this.messengerName,
+            data: contactId,
+        });
+    }
+    async getMessages(chatId) {
+        return this.sendAsync(jbdt.SDKClientActions.MESSENGER, { operation: "getMessages", messengerName: this.messengerName, data: chatId });
+    }
+    async logout() {
+        return this.sendAsync(jbdt.SDKClientActions.MESSENGER, { operation: "logout", messengerName: this.messengerName });
     }
 }
 exports.CbpMessenger = CbpMessenger;
